@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beef With Math — CIE Further Mathematics Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0c;
+  --surface: #141414;
+  --card: #1c1c1c;
+  --border: #282828;
+  --accent: #f7931e;
+  --accent2: #39ff14;
+  --accent3: #ffe600;
+  --text: #edeae3;
+  --text2: #7a7a7a;
+  --text3: #444;
+  --success: #00e676;
+  --r: 12px;
+  --mono: 'Space Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --disp: 'Syne', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.5}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(12,12,12,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--disp);font-size:1.3rem;font-weight:800;letter-spacing:-.02em;cursor:pointer}
+.nav-logo em{color:var(--accent);font-style:normal}
+.nav-mid{display:flex;gap:2rem}
+.nav-mid a{font-family:var(--mono);font-size:.7rem;color:var(--text2);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
+.nav-mid a:hover{color:var(--accent)}
+.nav-right{display:flex;gap:.75rem;align-items:center}
+.btn-ghost{font-family:var(--mono);font-size:.7rem;padding:.45rem 1.1rem;border:1px solid var(--border);background:transparent;color:var(--text2);border-radius:8px;cursor:pointer;transition:all .2s;letter-spacing:.04em}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-fill{font-family:var(--mono);font-size:.7rem;padding:.45rem 1.1rem;background:var(--accent);color:#000;border:none;border-radius:8px;cursor:pointer;font-weight:700;transition:all .2s;letter-spacing:.04em}
+.btn-fill:hover{background:#fff;transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:7rem 2rem 4rem;text-align:center}
+.hero-canvas{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.msym{position:absolute;font-family:var(--mono);color:rgba(247,147,30,.055);font-weight:700;animation:floatUp linear infinite;user-select:none;line-height:1}
+@keyframes floatUp{0%{transform:translateY(105vh) rotate(0deg);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateY(-15vh) rotate(380deg);opacity:0}}
+.hero-tag{font-family:var(--mono);font-size:.65rem;letter-spacing:.35em;color:var(--accent);text-transform:uppercase;margin-bottom:1.75rem;opacity:0;animation:slideUp .7s .1s ease forwards}
+.hero-h1{font-family:var(--disp);font-size:clamp(4rem,12vw,9.5rem);font-weight:800;line-height:.9;letter-spacing:-.04em;opacity:0;animation:slideUp .7s .2s ease forwards}
+.h1-beef{color:var(--accent)}
+.h1-with{display:block;font-size:.42em;color:var(--text2);font-style:italic;letter-spacing:.01em;margin:.15em 0}
+.h1-math{-webkit-text-stroke:2.5px var(--text);color:transparent}
+.hero-sub{font-family:var(--mono);font-size:.85rem;color:var(--text2);margin-top:1.75rem;line-height:1.9;letter-spacing:.03em;opacity:0;animation:slideUp .7s .35s ease forwards}
+.hero-sub strong{color:var(--accent2)}
+.hero-cta{display:flex;gap:1rem;margin-top:2.75rem;justify-content:center;opacity:0;animation:slideUp .7s .5s ease forwards}
+.btn-hero{font-family:var(--disp);font-size:.95rem;font-weight:700;padding:.9rem 2.25rem;border-radius:var(--r);cursor:pointer;transition:all .25s;border:none;letter-spacing:-.01em}
+.btn-hero.primary{background:var(--accent);color:#000}
+.btn-hero.primary:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(247,147,30,.28)}
+.btn-hero.secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-hero.secondary:hover{border-color:var(--accent2);color:var(--accent2)}
+.hero-stats{display:flex;gap:3rem;margin-top:4.5rem;opacity:0;animation:slideUp .7s .65s ease forwards}
+.stat-n{font-family:var(--disp);font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1}
+.stat-l{font-family:var(--mono);font-size:.6rem;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-top:.2rem}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:0;animation:slideUp .7s 1s ease forwards}
+.scroll-hint span{font-family:var(--mono);font-size:.58rem;color:var(--text3);letter-spacing:.25em}
+.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--accent),transparent);animation:pulse 2.2s ease infinite}
+@keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.15)}}
+
+/* LAYOUT */
+.sec{padding:5rem 2.5rem;max-width:1380px;margin:0 auto}
+.sec-tag{font-family:var(--mono);font-size:.65rem;letter-spacing:.32em;color:var(--accent);text-transform:uppercase;margin-bottom:.6rem}
+.sec-h{font-family:var(--disp);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;line-height:1.05;letter-spacing:-.025em;margin-bottom:.8rem}
+.sec-p{color:var(--text2);font-size:.95rem;max-width:560px;line-height:1.75}
+.divider{height:1px;background:var(--border);max-width:1380px;margin:0 auto}
+
+/* SEARCH */
+.search-box{display:flex;align-items:center;gap:.9rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.7rem 1.25rem;max-width:680px;margin:2.5rem auto 0;transition:border-color .2s}
+.search-box:focus-within{border-color:var(--accent)}
+.search-box input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:var(--sans);font-size:.95rem}
+.search-box input::placeholder{color:var(--text3)}
+.search-icon{color:var(--text3);font-size:1.1rem;line-height:1}
+#search-clr{background:var(--border);border:none;color:var(--text2);border-radius:5px;padding:.2rem .55rem;font-size:.68rem;cursor:pointer;font-family:var(--mono);display:none}
+#search-res{max-width:680px;margin:.75rem auto 0;display:none}
+.sr-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.9rem 1.15rem;margin-bottom:.45rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:space-between}
+.sr-item:hover{border-color:var(--accent);transform:translateX(4px)}
+.sr-name{font-size:.88rem;font-weight:500}
+.sr-path{font-family:var(--mono);font-size:.62rem;color:var(--text3);margin-top:.2rem}
+.sr-badge{font-family:var(--mono);font-size:.6rem;padding:.18rem .55rem;border-radius:20px;font-weight:700;flex-shrink:0}
+
+/* RECENTLY VIEWED */
+#recent-sec{padding-top:0;padding-bottom:2.5rem}
+.recent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9rem;margin-top:1.25rem}
+.r-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.15rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.r-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
+.r-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.r-title{font-weight:600;font-size:.88rem;margin-bottom:.28rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r-sub{font-family:var(--mono);font-size:.62rem;color:var(--text2)}
+.r-time{font-family:var(--mono);font-size:.58rem;color:var(--text3);margin-top:.45rem}
+
+/* PORTAL */
+.portal-tabs{display:flex;gap:.9rem;margin-bottom:2rem}
+.p-tab{font-family:var(--disp);font-size:1.05rem;font-weight:700;padding:.7rem 2rem;background:var(--surface);border:1px solid var(--border);color:var(--text2);border-radius:var(--r);cursor:pointer;transition:all .2s}
+.p-tab.active{background:var(--accent);border-color:var(--accent);color:#000}
+.p-tab:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+.year-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.75rem}
+.y-btn{font-family:var(--mono);font-size:.75rem;padding:.45rem 1.1rem;background:var(--surface);border:1px solid var(--border);color:var(--text2);border-radius:8px;cursor:pointer;transition:all .2s;position:relative}
+.y-btn.active{background:var(--card);border-color:var(--accent2);color:var(--accent2)}
+.y-btn:hover:not(.active){border-color:var(--text3)}
+.y-prog{position:absolute;bottom:-3px;left:0;height:2px;background:var(--accent2);border-radius:1px;transition:width .5s ease}
+.sub-row{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.s-tab{font-family:var(--mono);font-size:.7rem;padding:.42rem .9rem;border-radius:8px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text2);transition:all .2s;display:flex;align-items:center;gap:.35rem}
+.s-tab.active{color:#000;font-weight:700}
+.s-tab[data-s="FM"].active{background:#e8470a;border-color:#e8470a}
+.s-tab[data-s="FP1"].active{background:#f5c842;border-color:#f5c842}
+.s-tab[data-s="FP2"].active{background:#39ff14;border-color:#39ff14}
+.s-tab[data-s="FS"].active{background:#00d4ff;border-color:#00d4ff}
+.c-panel{display:none}.c-panel.on{display:block;animation:fadeIn .28s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* PAPERS */
+.papers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.65rem;margin-bottom:1.75rem}
+.p-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem;cursor:pointer;transition:all .2s;position:relative;text-align:center}
+.p-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(247,147,30,.09)}
+.p-card.seen{border-color:var(--success)}
+.p-tick{position:absolute;top:.45rem;right:.45rem;width:17px;height:17px;background:var(--success);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:9px;color:#000;font-weight:700}
+.p-card.seen .p-tick{display:flex}
+.p-name{font-family:var(--mono);font-size:.72rem;font-weight:700;margin-bottom:.2rem}
+.p-sub{font-size:.65rem;color:var(--text2)}
+
+/* CHAPTERS */
+.ch-wrap{margin-bottom:.42rem}
+.ch-hd{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.9rem 1.15rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all .2s}
+.ch-hd:hover,.ch-hd.op{border-color:var(--accent)}
+.ch-hd.op{border-bottom-left-radius:0;border-bottom-right-radius:0}
+.ch-name{font-weight:600;font-size:.88rem}
+.ch-meta{display:flex;align-items:center;gap:.9rem}
+.ch-cnt{font-family:var(--mono);font-size:.65rem;color:var(--text2)}
+.ch-arr{color:var(--text3);transition:transform .2s;font-size:.75rem}
+.ch-hd.op .ch-arr{transform:rotate(180deg)}
+.ch-body{display:none;background:var(--card);border:1px solid var(--accent);border-top:none;border-bottom-left-radius:var(--r);border-bottom-right-radius:var(--r);padding:.9rem}
+.ch-body.op{display:block;animation:fadeIn .2s ease}
+.pills{display:flex;gap:.4rem;flex-wrap:wrap}
+.pill{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:.35rem .75rem;font-family:var(--mono);font-size:.68rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.35rem}
+.pill:hover{border-color:var(--accent);color:var(--accent)}
+.pill.seen{border-color:var(--success);color:var(--success)}
+.pill-chk{font-size:.6rem}
+.prog-wrap{background:var(--border);border-radius:4px;height:3px;margin-top:1rem;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:4px;transition:width .5s ease}
+.prog-lbl{font-family:var(--mono);font-size:.62rem;color:var(--text2);margin-top:.28rem}
+.soon-box{margin-top:1.5rem;padding:1.75rem;background:var(--surface);border:1px dashed var(--border);border-radius:var(--r);text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--text3)}
+
+/* PRICING */
+.price-wrap{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:4rem 3rem;text-align:center;position:relative;overflow:hidden}
+.price-wrap::before{content:'£';position:absolute;font-family:var(--disp);font-size:22rem;font-weight:800;color:rgba(247,147,30,.025);top:-5rem;right:-3rem;line-height:1;pointer-events:none}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:1.4rem;margin-top:2.75rem;text-align:left}
+.plan{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.75rem 1.4rem;transition:all .3s;position:relative}
+.plan.hot{border-color:var(--accent);background:rgba(247,147,30,.04)}
+.plan.hot::before{content:'BEST VALUE';position:absolute;top:-.65rem;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;font-family:var(--mono);font-size:.58rem;font-weight:700;padding:.18rem .7rem;border-radius:20px;letter-spacing:.08em;white-space:nowrap}
+.plan:hover{transform:translateY(-4px);border-color:var(--accent)}
+.plan-dur{font-family:var(--mono);font-size:.65rem;color:var(--text2);letter-spacing:.1em;margin-bottom:.6rem}
+.plan-p{font-family:var(--disp);font-size:2.4rem;font-weight:800;line-height:1}
+.plan-p sup{font-size:1rem;color:var(--text2)}
+.plan-p sub{font-size:.9rem;color:var(--text2)}
+.plan-tot{font-family:var(--mono);font-size:.62rem;color:var(--text3);margin-top:.2rem}
+.plan-feats{margin-top:1.4rem;list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.plan-feats li{font-size:.82rem;color:var(--text2);display:flex;align-items:center;gap:.45rem}
+.plan-feats li::before{content:'✓';color:var(--accent2);font-weight:700;font-size:.75rem}
+.btn-plan{width:100%;margin-top:1.4rem;padding:.7rem;border-radius:9px;font-family:var(--disp);font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s;border:1px solid var(--border);background:transparent;color:var(--text)}
+.btn-plan:hover{border-color:var(--accent);color:var(--accent)}
+.btn-plan.solid{background:var(--accent);color:#000;border-color:var(--accent)}
+.btn-plan.solid:hover{background:#fff;border-color:#fff}
+
+/* CULT SECTION */
+.cult{background:#060606;border:1px solid #191919;border-radius:22px;padding:6rem 3rem;text-align:center;position:relative;overflow:hidden}
+.cult-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(57,255,20,.045) 0%,transparent 65%);pointer-events:none}
+.cult-ring{position:absolute;border-radius:50%;border:1px solid rgba(57,255,20,.08);animation:rPulse 4.5s ease infinite;top:50%;left:50%}
+.cr1{width:280px;height:280px;margin:-140px 0 0 -140px;animation-delay:0s}
+.cr2{width:480px;height:480px;margin:-240px 0 0 -240px;animation-delay:1.2s}
+.cr3{width:680px;height:680px;margin:-340px 0 0 -340px;animation-delay:2.4s}
+@keyframes rPulse{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.75;transform:scale(1.04)}}
+.cult-badge{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.4em;color:var(--accent2);border:1px solid rgba(57,255,20,.25);padding:.28rem .9rem;border-radius:20px;margin-bottom:1.5rem;text-transform:uppercase;position:relative}
+.cult-h{font-family:var(--disp);font-size:clamp(2rem,5.5vw,4.5rem);font-weight:800;line-height:.95;letter-spacing:-.04em;margin-bottom:1.4rem;position:relative}
+.cult-h em{color:var(--accent2);font-style:normal}
+.cult-desc{max-width:460px;margin:0 auto 2.5rem;color:var(--text2);line-height:1.8;font-size:.92rem;position:relative}
+.cult-form{display:flex;gap:.65rem;max-width:400px;margin:0 auto;position:relative}
+.cult-inp{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.7rem 1.15rem;color:var(--text);font-family:var(--sans);font-size:.88rem;outline:none;transition:border-color .2s}
+.cult-inp:focus{border-color:var(--accent2)}
+.cult-inp::placeholder{color:var(--text3)}
+.btn-cult{padding:.7rem 1.35rem;background:var(--accent2);color:#000;border:none;border-radius:var(--r);font-family:var(--disp);font-weight:700;font-size:.85rem;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-cult:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(57,255,20,.28)}
+.cult-n{font-family:var(--mono);font-size:.65rem;color:var(--text3);margin-top:.9rem;position:relative}
+.cult-n span{color:var(--accent2)}
+
+/* TIMELINE */
+.tl-intro{text-align:center;margin-bottom:5rem}
+.tl-q{font-family:var(--disp);font-size:clamp(1.4rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-.025em;margin-top:.4rem;background:linear-gradient(135deg,var(--text) 30%,var(--accent) 65%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tl{position:relative;padding-left:2.75rem}
+.tl::before{content:'';position:absolute;left:.6rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),var(--accent2),transparent)}
+.tl-item{position:relative;margin-bottom:2.75rem;opacity:0;transform:translateX(-18px);transition:all .55s ease}
+.tl-item.vis{opacity:1;transform:translateX(0)}
+.tl-dot{position:absolute;left:-2.2rem;top:.3rem;width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 0 4px rgba(247,147,30,.18)}
+.tl-yr{font-family:var(--mono);font-size:.65rem;color:var(--accent);letter-spacing:.1em;margin-bottom:.3rem}
+.tl-hd{font-family:var(--disp);font-size:1.15rem;font-weight:700;margin-bottom:.4rem}
+.tl-bd{color:var(--text2);font-size:.88rem;line-height:1.75;max-width:580px}
+.tl-tag{display:inline-block;font-family:var(--mono);font-size:.58rem;padding:.14rem .5rem;border-radius:20px;margin-top:.45rem;letter-spacing:.05em}
+.t-disc{background:rgba(57,255,20,.12);color:var(--accent2)}
+.t-inv{background:rgba(247,147,30,.12);color:var(--accent)}
+.t-both{background:rgba(255,230,0,.12);color:var(--accent3)}
+
+/* MODALS */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);z-index:800;display:none;align-items:center;justify-content:center;padding:2rem}
+.overlay.on{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:2.25rem;width:100%;max-width:440px;position:relative;animation:mIn .28s ease}
+@keyframes mIn{from{opacity:0;transform:scale(.94) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-x{position:absolute;top:.85rem;right:.85rem;background:var(--card);border:none;color:var(--text2);width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-x:hover{background:var(--border);color:var(--text)}
+.modal-h{font-family:var(--disp);font-size:1.65rem;font-weight:800;margin-bottom:.4rem}
+.modal-sub{color:var(--text2);font-size:.88rem;margin-bottom:1.4rem}
+.fg{margin-bottom:.9rem}
+.flbl{font-family:var(--mono);font-size:.65rem;letter-spacing:.05em;color:var(--text2);display:block;margin-bottom:.35rem}
+.finp{width:100%;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.7rem 1rem;color:var(--text);font-family:var(--sans);font-size:.88rem;outline:none;transition:border-color .2s}
+.finp:focus{border-color:var(--accent)}
+.btn-fw{width:100%;padding:.8rem;background:var(--accent);color:#000;border:none;border-radius:9px;font-family:var(--disp);font-weight:700;font-size:.95rem;cursor:pointer;margin-top:.4rem;transition:all .2s}
+.btn-fw:hover{background:#fff}
+.m-switch{text-align:center;margin-top:.9rem;font-size:.82rem;color:var(--text2)}
+.m-switch a{color:var(--accent);cursor:pointer;text-decoration:none}
+.pdf-modal{max-width:92vw;width:92vw;height:87vh;padding:.85rem;display:flex;flex-direction:column}
+.pdf-mhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+.pdf-mtitle{font-family:var(--mono);font-size:.72rem;color:var(--text2)}
+.pdf-frame{flex:1;border:none;border-radius:9px;background:#fff}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2.5rem 2.5rem;max-width:1380px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.25rem}
+.f-logo{font-family:var(--disp);font-size:1.15rem;font-weight:800}
+.f-logo em{color:var(--accent);font-style:normal}
+.f-copy{font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-top:.3rem}
+.f-links{display:flex;gap:1.5rem}
+.f-links a{font-family:var(--mono);font-size:.62rem;color:var(--text3);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--accent)}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.75rem;right:1.75rem;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:.8rem 1.15rem;font-family:var(--mono);font-size:.72rem;color:var(--text);z-index:9000;transform:translateY(80px);opacity:0;transition:all .3s ease;max-width:290px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.ok{border-color:var(--success)}
+
+.sec-h2-sm{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:var(--text2);text-transform:uppercase;margin:1.5rem 0 .65rem}
+
+@media(max-width:768px){
+  nav{padding:.8rem 1.25rem}
+  .nav-mid{display:none}
+  .hero-stats{gap:1.5rem}
+  .plans{grid-template-columns:1fr}
+  .cult-form{flex-direction:column}
+  footer{flex-direction:column;text-align:center}
+  .portal-tabs{flex-direction:column}
+  .sec{padding:3.5rem 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="scrollTo(0,0)">beef<em>×</em>math</div>
+  <div class="nav-mid">
+    <a href="#papers">Archive</a>
+    <a href="#course">Full Course</a>
+    <a href="#history">Origins</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-ghost" onclick="openM('login')">Log in</button>
+    <button class="btn-fill" onclick="openM('signup')">Get Access</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="home">
+  <div class="hero-canvas" id="hcanvas"></div>
+  <div class="hero-tag">CIE A-Level · Further Mathematics · 9231</div>
+  <h1 class="hero-h1">
+    <span class="h1-beef">BEEF</span>
+    <span class="h1-with">with</span>
+    <span class="h1-math">MATH</span>
+  </h1>
+  <p class="hero-sub">
+    Further Mathematics Solutions for CIE.<br>
+    <strong>Every paper. Every topic. Every year.</strong>
+  </p>
+  <div class="hero-cta">
+    <button class="btn-hero primary" onclick="document.getElementById('papers').scrollIntoView({behavior:'smooth'})">Start Solving →</button>
+    <button class="btn-hero secondary" onclick="openM('signup')">Create Free Account</button>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-n" id="cn1">0</div><div class="stat-l">Years of Papers</div></div>
+    <div><div class="stat-n" id="cn2">0</div><div class="stat-l">Subjects Covered</div></div>
+    <div><div class="stat-n" id="cn3">0</div><div class="stat-l">Chapter Topics</div></div>
+    <div><div class="stat-n">∞</div><div class="stat-l">Problems</div></div>
+  </div>
+  <div class="scroll-hint"><span>SCROLL</span><div class="scroll-line"></div></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SEARCH -->
+<section class="sec" id="search-sec">
+  <div class="sec-tag">// find anything</div>
+  <h2 class="sec-h">Search the Archive</h2>
+  <p class="sec-p">Jump straight to any paper, topic, or year. No digging around.</p>
+  <div class="search-box">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="search-inp" placeholder="Try: Circular motion 2023, FP2 Integration, 9231_s24…" autocomplete="off">
+    <button id="search-clr" onclick="clrSearch()">clear</button>
+  </div>
+  <div id="search-res"></div>
+</section>
+
+<!-- RECENTLY VIEWED -->
+<section class="sec" id="recent-sec">
+  <div class="sec-tag">// your trail</div>
+  <h3 style="font-family:var(--disp);font-weight:700;font-size:1.2rem;margin-bottom:.2rem">Recently Viewed</h3>
+  <div id="r-grid" class="recent-grid"></div>
+  <p id="r-empty" style="color:var(--text3);font-family:var(--mono);font-size:.72rem;display:none">Nothing yet — start exploring below. 👇</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- PAPERS -->
+<section class="sec" id="papers">
+  <div class="sec-tag">// the archive</div>
+  <h2 class="sec-h">Past Papers &amp; Topical Practice</h2>
+  <p class="sec-p">Complete CIE Further Maths 9231 archive — past papers and topic-by-topic questions, sorted and ready.</p>
+
+  <div class="portal-tabs" style="margin-top:2.5rem">
+    <button class="p-tab active" onclick="swSess('MAYJUNE',this)">MAY / JUNE</button>
+    <button class="p-tab" onclick="swSess('OCTNOV',this)">OCT / NOV</button>
+  </div>
+
+  <div id="pan-MAYJUNE" class="c-panel on">
+    <div class="year-row" id="yrow-MAYJUNE"></div>
+    <div id="ycont-MAYJUNE"></div>
+  </div>
+  <div id="pan-OCTNOV" class="c-panel">
+    <div class="year-row" id="yrow-OCTNOV"></div>
+    <div id="ycont-OCTNOV"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section class="sec" id="pricing">
+  <div class="price-wrap">
+    <div class="sec-tag" style="text-align:center">// unlock everything</div>
+    <h2 class="sec-h" style="text-align:center">Full Access Plans</h2>
+    <p class="sec-p" style="margin:0 auto;text-align:center">All papers. All topics. All years. Cancel anytime. No nonsense.</p>
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-dur">1 MONTH</div>
+        <div class="plan-p"><sup>£</sup>30<sub>/mo</sub></div>
+        <div class="plan-tot">£30 total</div>
+        <ul class="plan-feats">
+          <li>All past papers (MAY/JUNE + OCT/NOV)</li>
+          <li>Topical practice questions</li>
+          <li>Progress tracking</li>
+          <li>Search across archive</li>
+        </ul>
+        <button class="btn-plan" onclick="openM('signup')">Get Started</button>
+      </div>
+      <div class="plan">
+        <div class="plan-dur">3 MONTHS</div>
+        <div class="plan-p"><sup>£</sup>25<sub>/mo</sub></div>
+        <div class="plan-tot">£75 total · save £15</div>
+        <ul class="plan-feats">
+          <li>Everything in 1-month</li>
+          <li>Early course access</li>
+          <li>Priority email support</li>
+        </ul>
+        <button class="btn-plan" onclick="openM('signup')">Get Started</button>
+      </div>
+      <div class="plan hot">
+        <div class="plan-dur">6 MONTHS</div>
+        <div class="plan-p"><sup>£</sup>20<sub>/mo</sub></div>
+        <div class="plan-tot">£120 total · save £60</div>
+        <ul class="plan-feats">
+          <li>Everything in 3-month</li>
+          <li>Full course beta access</li>
+          <li>Lifetime updates</li>
+        </ul>
+        <button class="btn-plan solid" onclick="openM('signup')">Get Started</button>
+      </div>
+      <div class="plan">
+        <div class="plan-dur">12 MONTHS</div>
+        <div class="plan-p"><sup>£</sup>10<sub>/mo</sub></div>
+        <div class="plan-tot">£120 total · save £240</div>
+        <ul class="plan-feats">
+          <li>Everything included</li>
+          <li>Full course on launch</li>
+          <li>All future content</li>
+          <li>Founding member status</li>
+        </ul>
+        <button class="btn-plan" onclick="openM('signup')">Get Started</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CULT / COMING SOON -->
+<section class="sec" id="course">
+  <div class="cult">
+    <div class="cult-glow"></div>
+    <div class="cult-ring cr1"></div>
+    <div class="cult-ring cr2"></div>
+    <div class="cult-ring cr3"></div>
+    <div class="cult-badge">// for those who are serious</div>
+    <h2 class="cult-h">The Full<br><em>Further Maths</em><br>Course</h2>
+    <p class="cult-desc">
+      A complete, no-fluff mastery system for CIE Further Mathematics 9231.
+      Not a YouTube playlist. Not a PDF dump. A structured path — built for students
+      who don't just want to pass. They want to <em>own it.</em>
+      Work in progress. Coming when it's done right.
+    </p>
+    <div class="cult-form">
+      <input type="email" class="cult-inp" id="ea-email" placeholder="your@email.com">
+      <button class="btn-cult" onclick="doEarlyAccess()">Notify Me</button>
+    </div>
+    <p class="cult-n">Join <span id="wl-count">247</span> others already on the waitlist</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIMELINE -->
+<section class="sec" id="history">
+  <div class="tl-intro">
+    <div class="sec-tag" style="display:inline-block">// the eternal question</div>
+    <h2 class="tl-q">Is Mathematics Invented<br>or Discovered?</h2>
+    <p class="sec-p" style="margin:1rem auto 0;text-align:center">A journey through the minds that shaped numbers, equations — and reality itself.</p>
+  </div>
+  <div class="tl" id="tl">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-yr">~300 BC</div>
+      <div class="tl-hd">Euclid lays the foundation</div>
+      <div class="tl-bd">The Elements — 13 books, 465 propositions. Euclid didn't invent geometry, he organised what already existed in nature. Were his axioms invented rules, or discovered truths? The debate begins here.</div>
+      <span class="tl-tag t-disc">DISCOVERED</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--accent3)"></div>
+      <div class="tl-yr">~250 BC</div>
+      <div class="tl-hd">Archimedes and the infinite</div>
+      <div class="tl-bd">Archimedes approximated π before calculus existed — using exhaustion, an idea so powerful it took 2,000 years to formalise. Was π waiting to be found, or did humans choose to measure circles that way?</div>
+      <span class="tl-tag t-both">BOTH?</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--accent2)"></div>
+      <div class="tl-yr">1637</div>
+      <div class="tl-hd">Descartes marries algebra and geometry</div>
+      <div class="tl-bd">The Cartesian coordinate system — a pure invention. A language created to describe space. But the truths it revealed? Those already existed. A human construct revealing inhuman precision.</div>
+      <span class="tl-tag t-inv">INVENTED</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-yr">1666</div>
+      <div class="tl-hd">Newton and Leibniz — calculus from thin air</div>
+      <div class="tl-bd">Two minds. Different continents. Same mathematics. Independently. If it were invented, how did two people invent identical systems? If discovered — where does it live when no one is looking?</div>
+      <span class="tl-tag t-disc">DISCOVERED</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--accent3)"></div>
+      <div class="tl-yr">1843</div>
+      <div class="tl-hd">Hamilton invents quaternions — and breaks the rules</div>
+      <div class="tl-bd">Hamilton abandoned commutativity (a×b ≠ b×a) to make his numbers work. He didn't discover a truth — he chose different axioms. Yet quaternions describe 3D rotation with perfect elegance. Invented tools, discovered applications.</div>
+      <span class="tl-tag t-both">BOTH?</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--accent2)"></div>
+      <div class="tl-yr">1931</div>
+      <div class="tl-hd">Gödel shatters certainty</div>
+      <div class="tl-bd">Gödel's Incompleteness Theorems proved that within any consistent mathematical system, there exist truths that cannot be proved within that system. Mathematics contains things it cannot see. Some truths exist beyond invention.</div>
+      <span class="tl-tag t-disc">DISCOVERED</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:linear-gradient(135deg,var(--accent),var(--accent2))"></div>
+      <div class="tl-yr">Today</div>
+      <div class="tl-hd">The question is still open</div>
+      <div class="tl-bd">The most honest answer: mathematics is a language we invented to describe patterns we discovered. Like asking if music is invented or discovered — the notes are made up, but harmony is real. And that tension? That's the beef.</div>
+      <span class="tl-tag t-both">STILL DEBATED</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo">beef<em>×</em>math</div>
+    <div class="f-copy">Further Mathematics Solutions · CIE A-Level 9231</div>
+  </div>
+  <div class="f-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="mailto:hello@beefwithmath.com">Contact</a>
+    <a href="https://beefwithmath.com">beefwithmath.com</a>
+  </div>
+  <div class="f-copy">© 2025 Beef With Math. All rights reserved.</div>
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="overlay" id="ov-login">
+  <div class="modal">
+    <button class="modal-x" onclick="closeM('login')">✕</button>
+    <div class="modal-h">Welcome back.</div>
+    <div class="modal-sub">Pick up where you left off.</div>
+    <div class="fg"><label class="flbl">EMAIL</label><input type="email" class="finp" placeholder="you@example.com"></div>
+    <div class="fg"><label class="flbl">PASSWORD</label><input type="password" class="finp" placeholder="••••••••"></div>
+    <button class="btn-fw">Log In</button>
+    <div class="m-switch">No account? <a onclick="swM('login','signup')">Sign up free</a></div>
+  </div>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div class="overlay" id="ov-signup">
+  <div class="modal">
+    <button class="modal-x" onclick="closeM('signup')">✕</button>
+    <div class="modal-h">Join the beef.</div>
+    <div class="modal-sub">Create your account and start solving.</div>
+    <div class="fg"><label class="flbl">FULL NAME</label><input type="text" class="finp" placeholder="Your name"></div>
+    <div class="fg"><label class="flbl">EMAIL</label><input type="email" class="finp" placeholder="you@example.com"></div>
+    <div class="fg"><label class="flbl">PASSWORD</label><input type="password" class="finp" placeholder="Make it strong"></div>
+    <button class="btn-fw" onclick="closeM('signup');toast('Account created! Welcome to the beef 🔥','ok')">Create Account</button>
+    <div class="m-switch">Already in? <a onclick="swM('signup','login')">Log in</a></div>
+  </div>
+</div>
+
+<!-- PDF MODAL -->
+<div class="overlay" id="ov-pdf">
+  <div class="modal pdf-modal">
+    <div class="pdf-mhd">
+      <div class="pdf-mtitle" id="pdf-title">Loading…</div>
+      <button class="modal-x" style="position:static" onclick="closePDF()">✕</button>
+    </div>
+    <iframe class="pdf-frame" id="pdf-frame" src=""></iframe>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast-el"></div>
+
+<script src="data.js"></script>
+<script>
+// ── STATE ──────────────────────────────────────
+let SESS = 'MAYJUNE';
+let AYEAR = { MAYJUNE:'2021 mayjune', OCTNOV:'2021 octnov' };
+let ASUB  = { MAYJUNE:'FM', OCTNOV:'FM' };
+let VIEWED  = JSON.parse(localStorage.getItem('bwm_v')  || '[]');
+let RECENT  = JSON.parse(localStorage.getItem('bwm_r')  || '[]');
+
+// ── BOOT ──────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  spawnSymbols();
+  countUp('cn1',5,800);
+  countUp('cn2',4,900);
+  countUp('cn3',24,1000);
+  buildYears('MAYJUNE');
+  buildYears('OCTNOV');
+  renderYear('MAYJUNE', AYEAR.MAYJUNE);
+  renderYear('OCTNOV',  AYEAR.OCTNOV);
+  renderRecent();
+  setupSearch();
+  setupTL();
+  setupOverlayClose();
+});
+
+// ── FLOATING SYMBOLS ──────────────────────────
+function spawnSymbols() {
+  const syms = ['∫','∑','∂','∇','π','∞','√','Δ','θ','λ','σ','φ','ω','α','β','≠','∈','∀','∃','⊕','⊗','∮'];
+  const c = document.getElementById('hcanvas');
+  syms.forEach(s => {
+    const d = document.createElement('div');
+    d.className = 'msym';
+    d.textContent = s;
+    d.style.left = Math.random()*96+'%';
+    d.style.fontSize = (1.4 + Math.random()*4.5)+'rem';
+    d.style.animationDuration = (14 + Math.random()*22)+'s';
+    d.style.animationDelay = (Math.random()*18)+'s';
+    c.appendChild(d);
+  });
+}
+
+// ── COUNTER ───────────────────────────────────
+function countUp(id, target, dur) {
+  const el = document.getElementById(id);
+  let s = null;
+  const step = ts => {
+    if (!s) s = ts;
+    const p = Math.min((ts-s)/dur, 1);
+    el.textContent = Math.floor(p * target);
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// ── YEAR BUTTONS ──────────────────────────────
+function buildYears(sess) {
+  const c = document.getElementById(`yrow-${sess}`);
+  c.innerHTML = '';
+  DATA.sessions[sess].years.forEach(yr => {
+    const btn = document.createElement('button');
+    btn.className = 'y-btn' + (yr === AYEAR[sess] ? ' active' : '');
+    const label = yr.split(' ')[0];
+    const pct = getYrProg(sess, yr);
+    btn.innerHTML = `${label}<div class="y-prog" style="width:${pct}%"></div>`;
+    btn.onclick = () => { swYear(sess, yr, btn); };
+    c.appendChild(btn);
+  });
+}
+
+function getYrProg(sess, yr) {
+  let total=0, done=0;
+  const sd = DATA.sessions[sess];
+  const code = sd.folderCode;
+  const yy = yr.split(' ')[0].slice(2);
+  ['FM','FP1','FP2','FS'].forEach(sub => {
+    getPaperNums(sub, yr.includes('2025')).forEach(p => {
+      const path = makePaperPath(sd.baseFolder, yr, sub, code, yy, p);
+      total++; if (VIEWED.includes(path)) done++;
+    });
+    const top = sd.topical[yr];
+    if (top && top[sub]) {
+      Object.entries(top[sub]).forEach(([ch, cnt]) => {
+        getPDFs(cnt).forEach(f => {
+          const path = makeTopPath(sd.baseFolder, yr, sub, ch, f);
+          total++; if (VIEWED.includes(path)) done++;
+        });
+      });
+    }
+  });
+  return total > 0 ? Math.round((done/total)*100) : 0;
+}
+
+function getPaperNums(sub, is2025) {
+  const base = sub==='FP1'?[11,12,13]:sub==='FP2'?[21,22,23]:sub==='FM'?[31,32,33]:[41,42,43];
+  const extra = sub==='FP1'?14:sub==='FP2'?24:sub==='FM'?34:44;
+  return is2025 ? [...base, extra] : base;
+}
+
+function getPDFs(cnt) {
+  if (Array.isArray(cnt)) return cnt;
+  return Array.from({length:cnt}, (_,i) => `${i+1}.pdf`);
+}
+
+function makePaperPath(base, yr, sub, code, yy, p) {
+  return `${base}/${yr}/All past paper/${sub}/9231_${code}${yy}_qp_${p}.pdf`;
+}
+function makeTopPath(base, yr, sub, ch, f) {
+  return `${base}/${yr}/Topical Fetching ${sub}/${ch}/${f}`;
+}
+
+// ── SWITCH SESSION / YEAR / SUBJECT ───────────
+function swSess(sess, btn) {
+  SESS = sess;
+  document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.c-panel').forEach(p => p.classList.remove('on'));
+  document.getElementById(`pan-${sess}`).classList.add('on');
+}
+
+function swYear(sess, yr, btn) {
+  AYEAR[sess] = yr;
+  document.querySelectorAll(`#yrow-${sess} .y-btn`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderYear(sess, yr);
+}
+
+function renderYear(sess, yr) {
+  const cont = document.getElementById(`ycont-${sess}`);
+  const sd = DATA.sessions[sess];
+  const code = sd.folderCode;
+  const yy = yr.split(' ')[0].slice(2);
+  const subs = DATA.subjects;
+
+  // Subject tabs
+  let html = `<div class="sub-row">`;
+  Object.keys(subs).forEach(sub => {
+    const on = sub === ASUB[sess] ? ' active' : '';
+    html += `<button class="s-tab${on}" data-s="${sub}" onclick="swSub('${sess}','${sub}',this)">${sub} <small style="font-weight:400;opacity:.7">${subs[sub].label}</small></button>`;
+  });
+  html += `</div>`;
+
+  Object.keys(subs).forEach(sub => {
+    const on = sub === ASUB[sess] ? ' on' : '';
+    html += `<div class="c-panel${on}" id="sp-${sess}-${sub}">`;
+
+    // Progress
+    const pct = getSubProg(sess, yr, sub);
+    html += `<div class="prog-wrap"><div class="prog-fill" style="width:${pct}%"></div></div>
+             <div class="prog-lbl">${pct}% complete — ${sub} · ${yr.split(' ')[0]}</div>`;
+
+    // All past papers
+    html += `<div class="sec-h2-sm">All Past Papers</div><div class="papers-grid">`;
+    getPaperNums(sub, yr.includes('2025')).forEach(p => {
+      const path = makePaperPath(sd.baseFolder, yr, sub, code, yy, p);
+      const seen = VIEWED.includes(path) ? ' seen' : '';
+      const fname = `9231_${code}${yy}_qp_${p}`;
+      html += `<div class="p-card${seen}" onclick="openPDF('${path}','${fname}')">
+        <div class="p-tick">✓</div>
+        <div class="p-name">Paper ${p}</div>
+        <div class="p-sub">${fname}</div>
+      </div>`;
+    });
+    html += `</div>`;
+
+    // Topical
+    const top = sd.topical[yr];
+    if (top && top[sub]) {
+      html += `<div class="sec-h2-sm">Topical Practice</div>`;
+      Object.entries(top[sub]).forEach(([ch, cnt]) => {
+        const pdfs = getPDFs(cnt);
+        html += `<div class="ch-wrap">
+          <div class="ch-hd" onclick="togCh(this)">
+            <div><div class="ch-name">${ch}</div></div>
+            <div class="ch-meta">
+              <div class="ch-cnt">${pdfs.length} question${pdfs.length>1?'s':''}</div>
+              <div class="ch-arr">▾</div>
+            </div>
+          </div>
+          <div class="ch-body"><div class="pills">`;
+        pdfs.forEach(f => {
+          const path = makeTopPath(sd.baseFolder, yr, sub, ch, f);
+          const seen = VIEWED.includes(path) ? ' seen' : '';
+          html += `<div class="pill${seen}" onclick="openPDF('${path}','${ch} · ${f}')">
+            ${seen ? '<span class="pill-chk">✓</span>' : ''}${f}
+          </div>`;
+        });
+        html += `</div></div></div>`;
+      });
+    } else {
+      html += `<div class="soon-box">⏳ Topical questions for this session coming soon</div>`;
+    }
+
+    html += `</div>`; // close c-panel
+  });
+
+  cont.innerHTML = html;
+}
+
+function getSubProg(sess, yr, sub) {
+  let total=0, done=0;
+  const sd = DATA.sessions[sess];
+  const code = sd.folderCode;
+  const yy = yr.split(' ')[0].slice(2);
+  getPaperNums(sub, yr.includes('2025')).forEach(p => {
+    const path = makePaperPath(sd.baseFolder, yr, sub, code, yy, p);
+    total++; if (VIEWED.includes(path)) done++;
+  });
+  const top = sd.topical[yr];
+  if (top && top[sub]) {
+    Object.entries(top[sub]).forEach(([ch, cnt]) => {
+      getPDFs(cnt).forEach(f => {
+        const path = makeTopPath(sd.baseFolder, yr, sub, ch, f);
+        total++; if (VIEWED.includes(path)) done++;
+      });
+    });
+  }
+  return total > 0 ? Math.round((done/total)*100) : 0;
+}
+
+function swSub(sess, sub, btn) {
+  ASUB[sess] = sub;
+  document.querySelectorAll(`#ycont-${sess} .s-tab`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll(`#ycont-${sess} .c-panel`).forEach(p => p.classList.remove('on'));
+  const panel = document.getElementById(`sp-${sess}-${sub}`);
+  if (panel) panel.classList.add('on');
+}
+
+function togCh(hd) {
+  hd.classList.toggle('op');
+  hd.nextElementSibling.classList.toggle('op');
+}
+
+// ── PDF OPEN ──────────────────────────────────
+function openPDF(path, title) {
+  if (!VIEWED.includes(path)) {
+    VIEWED.push(path);
+    localStorage.setItem('bwm_v', JSON.stringify(VIEWED));
+  }
+  RECENT = RECENT.filter(r => r.path !== path);
+  RECENT.unshift({ path, title, t: Date.now() });
+  RECENT = RECENT.slice(0, 5);
+  localStorage.setItem('bwm_r', JSON.stringify(RECENT));
+
+  document.getElementById('pdf-title').textContent = title;
+  document.getElementById('pdf-frame').src = path.split('/').map(seg => encodeURIComponent(seg)).join('/');
+  document.getElementById('ov-pdf').classList.add('on');
+
+  renderRecent();
+  buildYears(SESS);
+  renderYear(SESS, AYEAR[SESS]);
+}
+
+function closePDF() {
+  document.getElementById('ov-pdf').classList.remove('on');
+  document.getElementById('pdf-frame').src = '';
+}
+
+// ── RECENTLY VIEWED ───────────────────────────
+function renderRecent() {
+  const grid = document.getElementById('r-grid');
+  const empty = document.getElementById('r-empty');
+  if (!RECENT.length) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.style.display = 'grid';
+  grid.innerHTML = RECENT.map(r => {
+    const parts = r.path.split('/');
+    const tag = `${parts[0]} · ${parts[1]}`;
+    return `<div class="r-card" onclick="openPDF('${r.path}','${r.title}')">
+      <div class="r-title">${r.title}</div>
+      <div class="r-sub">${tag}</div>
+      <div class="r-time">${ago(r.t)}</div>
+    </div>`;
+  }).join('');
+}
+
+function ago(ts) {
+  const d = Date.now()-ts, m = Math.floor(d/60000);
+  if (m < 1) return 'Just now';
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m/60);
+  if (h < 24) return `${h}h ago`;
+  return `${Math.floor(h/24)}d ago`;
+}
+
+// ── SEARCH ────────────────────────────────────
+function setupSearch() {
+  const inp = document.getElementById('search-inp');
+  const clr = document.getElementById('search-clr');
+  inp.addEventListener('input', () => {
+    const q = inp.value.trim().toLowerCase();
+    clr.style.display = q ? 'block' : 'none';
+    if (q.length < 2) { document.getElementById('search-res').style.display='none'; return; }
+    doSearch(q);
+  });
+}
+function clrSearch() {
+  document.getElementById('search-inp').value = '';
+  document.getElementById('search-clr').style.display = 'none';
+  document.getElementById('search-res').style.display = 'none';
+}
+function doSearch(q) {
+  const results = [];
+  Object.entries(DATA.sessions).forEach(([sk, sd]) => {
+    sd.years.forEach(yr => {
+      const yy = yr.split(' ')[0].slice(2);
+      const code = sd.folderCode;
+      Object.keys(DATA.subjects).forEach(sub => {
+        const sLabel = DATA.subjects[sub].label;
+        const sColor = DATA.subjects[sub].color;
+        getPaperNums(sub, yr.includes('2025')).forEach(p => {
+          const fname = `9231_${code}${yy}_qp_${p}`;
+          const name = `${sLabel} Paper ${p} · ${yr.split(' ')[0]} ${sd.label}`;
+          if ([name,sub,yr,fname].some(s=>s.toLowerCase().includes(q))) {
+            results.push({ name, path: makePaperPath(sd.baseFolder, yr, sub, code, yy, p), badge: sub, col: sColor });
+          }
+        });
+        const top = sd.topical[yr];
+        if (top && top[sub]) {
+          Object.entries(top[sub]).forEach(([ch, cnt]) => {
+            if ([ch, sub, sLabel, yr].some(s=>s.toLowerCase().includes(q))) {
+              getPDFs(cnt).forEach(f => {
+                results.push({ name:`${ch} · ${f} (${yr.split(' ')[0]} ${sd.label})`, path: makeTopPath(sd.baseFolder, yr, sub, ch, f), badge:`${sub}`, col: sColor });
+              });
+            }
+          });
+        }
+      });
+    });
+  });
+  const c = document.getElementById('search-res');
+  if (!results.length) {
+    c.innerHTML = `<div style="text-align:center;padding:1.25rem;font-family:var(--mono);font-size:.7rem;color:var(--text3)">No results for "${q}"</div>`;
+    c.style.display='block'; return;
+  }
+  c.innerHTML = results.slice(0,9).map(r => {
+    const seen = VIEWED.includes(r.path);
+    return `<div class="sr-item" onclick="openPDF('${r.path}','${r.name}')">
+      <div>
+        <div class="sr-name">${r.name}${seen?` <span style="color:var(--success);font-size:.75rem">✓</span>`:''}
+        </div>
+        <div class="sr-path">${r.path}</div>
+      </div>
+      <span class="sr-badge" style="background:${r.col}22;color:${r.col}">${r.badge}</span>
+    </div>`;
+  }).join('');
+  c.style.display='block';
+}
+
+// ── MODALS ────────────────────────────────────
+function openM(name)  { document.getElementById(`ov-${name}`).classList.add('on'); }
+function closeM(name) { document.getElementById(`ov-${name}`).classList.remove('on'); }
+function swM(a,b)     { closeM(a); setTimeout(()=>openM(b),200); }
+function setupOverlayClose() {
+  document.querySelectorAll('.overlay').forEach(ov => {
+    ov.addEventListener('click', e => {
+      if (e.target === ov) { ov.classList.remove('on'); if(ov.id==='ov-pdf') document.getElementById('pdf-frame').src=''; }
+    });
+  });
+}
+
+// ── EARLY ACCESS ──────────────────────────────
+function doEarlyAccess() {
+  const inp = document.getElementById('ea-email');
+  if (!inp.value.includes('@')) { toast('Enter a valid email address'); return; }
+  inp.value = '';
+  const el = document.getElementById('wl-count');
+  el.textContent = parseInt(el.textContent) + 1;
+  toast('You\'re on the list. We\'ll reach out soon 🟢','ok');
+}
+
+// ── TOAST ─────────────────────────────────────
+function toast(msg, cls='') {
+  const el = document.getElementById('toast-el');
+  el.textContent = msg;
+  el.className = `toast ${cls} show`;
+  setTimeout(() => el.className='toast', 3600);
+}
+
+// ── TIMELINE SCROLL REVEAL ────────────────────
+function setupTL() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.tl-item').forEach(el => obs.observe(el));
+}
+</script>
+</body>
+</html>
