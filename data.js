@@ -35,7 +35,7 @@ const DATA = {
           FP1: { "Matrices":2,"Polar coordinates":2,"Proof by induction":2,
                  "Rational functions and graphs":2,"Roots of polynomial equations":2,
                  "Summation of series":2,"Vectors":2 },
-          FP2: { "Complex numbers":3,"Differential equations":["1.pdf","3.pdf","4.pdf"],"Differentiation":2,
+          FP2: { "Complex numbers":3,"Differential equations":4,"Differentiation":2,
                  "Hyperbolic functions":4,"Integration":4,"Matrices":3 },
           FS:  { "Continuous random variables":2,"Inference using normal and t-distributions":4,
                  "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
@@ -63,8 +63,8 @@ const DATA = {
                  "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
         },
         "2024 mayjune": {
-          FM:  { "Circular motion":2,"Equilibrium of a rigid body":0,"Hookes law":2,
-                 "Linear motion under a variable force":0,"Momentum":2,"Motion of a projectile":2 },
+          FM:  { "Circular motion":2,"Equilibrium of a rigid body":2,"Hookes law":2,
+                 "Linear motion under a variable force":2,"Momentum":2,"Motion of a projectile":2 },
           FP1: { "Matrices":3,"Polar coordinates":2,"Proof by induction":2,
                  "Rational functions and graphs":2,"Roots of polynomial equations":2,
                  "Summation of series":2,"Vectors":2 },
@@ -79,8 +79,8 @@ const DATA = {
           FM:  { "Circular motion":6,"Equilibrium of a rigid body":3,"Hookes law":3,
                  "Linear motion under a variable force":3,"Momentum":3,"Motion of a projectile":3 },
           FP1: { "Matrices":4,"Polar coordinates":3,"Proof by induction":3,
-                 "Rational functions and graphs":0,"Roots of polynomial equations":3,
-                 "Summation of series":0,"Vectors":3 },
+                 "Rational functions and graphs":3,"Roots of polynomial equations":3,
+                 "Summation of series":3,"Vectors":3 },
           FP2: { "Complex numbers":4,"Differential equations":6,"Differentiation":4,
                  "Hyperbolic functions":3,"Integration":5,"Matrices":4 },
           FS:  { "Continuous random variables":3,"Inference using normal and t-distributions":6,
