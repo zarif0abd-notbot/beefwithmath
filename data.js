@@ -11,8 +11,8 @@ const DATA = {
   },
 
   chapters: {
-    FM:  ["Circular motion","Equilibrium of a rigid body","Hookes law",
-          "Linear motion under a variable force","Momentum","Motion of a projectile"],
+    FM:  ["Circular motion","Equilibrium of a rigid Body","Hookes law",
+          "Linear motion under a variable Force","Momentum","Motion of a projectile"],
     FP1: ["Matrices","Polar coordinates","Proof by induction",
           "Rational functions and graphs","Roots of polynomial equations",
           "Summation of series","Vectors"],
@@ -30,8 +30,8 @@ const DATA = {
       years: ["2021 mayjune","2022 mayjune","2023 mayjune","2024 mayjune","2025 mayjune"],
       topical: {
         "2021 mayjune": {
-          FM:  { "Circular motion":4,"Equilibrium of a rigid body":2,"Hookes law":2,
-                 "Linear motion under a variable force":2,"Momentum":2,"Motion of a projectile":2 },
+          FM:  { "Circular motion":4,"Equilibrium of a rigid Body":2,"Hookes law":2,
+                 "Linear motion under a variable Force":2,"Momentum":2,"Motion of a projectile":2 },
           FP1: { "Matrices":2,"Polar coordinates":2,"Proof by induction":2,
                  "Rational functions and graphs":2,"Roots of polynomial equations":2,
                  "Summation of series":2,"Vectors":2 },
@@ -41,8 +41,8 @@ const DATA = {
                  "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
         },
         "2022 mayjune": {
-          FM:  { "Circular motion":3,"Equilibrium of a rigid body":3,"Hookes law":2,
-                 "Linear motion under a variable force":2,"Momentum":2,"Motion of a projectile":2 },
+          FM:  { "Circular motion":3,"Equilibrium of a rigid Body":3,"Hookes law":2,
+                 "Linear motion under a variable Force":2,"Momentum":2,"Motion of a projectile":2 },
           FP1: { "Matrices":2,"Polar coordinates":2,"Proof by induction":1,
                  "Rational functions and graphs":3,"Roots of polynomial equations":2,
                  "Summation of series":2,"Vectors":2 },
@@ -52,8 +52,8 @@ const DATA = {
                  "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
         },
         "2023 mayjune": {
-          FM:  { "Circular motion":2,"Equilibrium of a rigid body":2,"Hookes law":2,
-                 "Linear motion under a variable force":2,"Momentum":2,"Motion of a projectile":2 },
+          FM:  { "Circular motion":2,"Equilibrium of a rigid Body":2,"Hookes law":2,
+                 "Linear motion under a variable Force":2,"Momentum":2,"Motion of a projectile":2 },
           FP1: { "Matrices":2,"Polar coordinates":2,"Proof by induction":2,
                  "Rational functions and graphs":2,"Roots of polynomial equations":2,
                  "Summation of series":2,"Vectors":2 },
@@ -63,8 +63,8 @@ const DATA = {
                  "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
         },
         "2024 mayjune": {
-          FM:  { "Circular motion":2,"Equilibrium of a rigid body":2,"Hookes law":2,
-                 "Linear motion under a variable force":2,"Momentum":2,"Motion of a projectile":2 },
+          FM:  { "Circular motion":2,"Equilibrium of a rigid Body":2,"Hookes law":2,
+                 "Linear motion under a variable Force":2,"Momentum":2,"Motion of a projectile":2 },
           FP1: { "Matrices":3,"Polar coordinates":2,"Proof by induction":2,
                  "Rational functions and graphs":2,"Roots of polynomial equations":2,
                  "Summation of series":2,"Vectors":2 },
@@ -76,8 +76,8 @@ const DATA = {
                  "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
         },
         "2025 mayjune": {
-          FM:  { "Circular motion":6,"Equilibrium of a rigid body":3,"Hookes law":3,
-                 "Linear motion under a variable force":3,"Momentum":3,"Motion of a projectile":3 },
+          FM:  { "Circular motion":6,"Equilibrium of a rigid Body":3,"Hookes law":3,
+                 "Linear motion under a variable Force":3,"Momentum":3,"Motion of a projectile":3 },
           FP1: { "Matrices":4,"Polar coordinates":3,"Proof by induction":3,
                  "Rational functions and graphs":3,"Roots of polynomial equations":3,
                  "Summation of series":3,"Vectors":3 },
@@ -95,8 +95,8 @@ const DATA = {
       years: ["2021 octnov","2022 octnov","2023 octnov","2024 octnov","2025 octnov"],
       topical: {
         "2021 octnov": {
-          FM:  { "Circular motion":2,"Equilibrium of a rigid body":2,"Hookes law":2,
-                 "Linear motion under a variable force":2,"Momentum":2,"Motion of a projectile":2 },
+          FM:  { "Circular motion":2,"Equilibrium of a rigid Body":2,"Hookes law":2,
+                 "Linear motion under a variable Force":2,"Momentum":2,"Motion of a projectile":2 },
           FP1: { "Matrices":2,"Polar coordinates":2,"Proof by induction":2,
                  "Rational functions and graphs":2,"Roots of polynomial equations":2,
                  "Summation of series":2,"Vectors":2 },
@@ -106,8 +106,8 @@ const DATA = {
                  "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
         },
         "2022 octnov": {
-          FM:  { "Circular motion":4,"Equilibrium of a rigid body":2,"Hookes law":2,
-                 "Linear motion under a variable force":2,"Momentum":3,"Motion of a projectile":2 },
+          FM:  { "Circular motion":4,"Equilibrium of a rigid Body":2,"Hookes law":2,
+                 "Linear motion under a variable Force":2,"Momentum":3,"Motion of a projectile":2 },
           FP1: { "Matrices":2,"Polar coordinates":2,"Proof by induction":2,
                  "Rational functions and graphs":2,"Roots of polynomial equations":2,
                  "Summation of series":2,"Vectors":2 },
