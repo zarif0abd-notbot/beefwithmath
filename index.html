@@ -39,13 +39,14 @@ html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono',monospace;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
 
 /* CUSTOM CURSOR */
-#cur{position:fixed;pointer-events:none;z-index:9999;width:18px;height:18px;transform:translate(-50%,-50%);transition:transform .15s}
+#cur{position:fixed;pointer-events:none;z-index:9999;width:18px;height:18px;transform:translate(-50%,-50%)}
 #cur::before{content:'+';font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--o);line-height:1;display:block;text-align:center;animation:curBlink 1.8s ease infinite}
 #cur.clicking{transform:translate(-50%,-50%) scale(.7)}
 @keyframes curBlink{0%,100%{opacity:.6}50%{opacity:1}}
 
 /* SCANLINES */
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,var(--scan) 3px,var(--scan) 4px);pointer-events:none;z-index:9990;animation:scanMove 10s linear infinite}
+body.pdf-open::after{display:none}
 .ov.on~body::after{display:none}
 .pframe{position:relative;z-index:1}
 .pdf-modal{isolation:isolate}
@@ -943,8 +944,7 @@ function goPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active','glitch-enter'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   const page=document.getElementById(`page-${name}`);
-  page.classList.add('active');
-  setTimeout(()=>page.classList.add('glitch-enter'),10);
+  page.classList.add('active','glitch-enter');
   document.querySelectorAll('.nav-item').forEach(n=>{
     if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes(`'${name}'`))n.classList.add('active');
   });
@@ -987,17 +987,15 @@ function toggleTheme(){
 function initCursor(){
   const c=document.getElementById('cur');
   document.addEventListener('mousemove',e=>{
-    c.style.left=e.clientX+'px';c.style.top=e.clientY+'px';
+    c.style.left=e.clientX+'px';
+    c.style.top=e.clientY+'px';
     // Parallax on home glows
-    const xp=(e.clientX/window.innerWidth-.5)*20;
-    const yp=(e.clientY/window.innerHeight-.5)*20;
+    const xp=(e.clientX/window.innerWidth-.5)*18;
+    const yp=(e.clientY/window.innerHeight-.5)*18;
     const g1=document.querySelector('.home-glow1');
     const g2=document.querySelector('.home-glow2');
     if(g1)g1.style.transform=`translate(${xp}px,${yp}px)`;
-    if(g2)g2.style.transform=`translate(${-xp*.6}px,${-yp*.6}px)`;
-    // Grid subtle parallax
-    const grid=document.querySelector('.home-grid');
-    if(grid)grid.style.backgroundPosition=`${xp*2}px ${yp*2}px`;
+    if(g2)g2.style.transform=`translate(${-xp*.5}px,${-yp*.5}px)`;
   });
   document.addEventListener('mousedown',()=>c.classList.add('clicking'));
   document.addEventListener('mouseup',()=>c.classList.remove('clicking'));
@@ -1019,18 +1017,7 @@ function spawnSyms(){
     c.appendChild(d);
   });
   // Cursor repel
-  setInterval(()=>{
-    document.querySelectorAll('.fsym').forEach(sym=>{
-      const r=sym.getBoundingClientRect();
-      const cx=r.left+r.width/2,cy=r.top+r.height/2;
-      const dx=cx-mouseX,dy=cy-mouseY;
-      const dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<120){
-        const force=(120-dist)/120;
-        sym.style.transform=`translate(${(dx/dist)*force*30}px,${(dy/dist)*force*20}px)`;
-      }else{sym.style.transform=''}
-    });
-  },50);
+
 }
 
 // ══ SCRAMBLE COUNTER ══
@@ -1163,7 +1150,7 @@ function togCh(hd){hd.classList.toggle('op');hd.nextElementSibling.classList.tog
 function showPricingPopup(){}
 
 // ══ PDF ══
-function openPDF(path,title){
+function openPDF(path,title){document.body.classList.add('pdf-open');
   if(!VIEWED.includes(path)){
     if(previewCount>=MAX_FREE){showPricingPopup();return}
     VIEWED.push(path);
@@ -1181,7 +1168,7 @@ function openPDF(path,title){
   document.getElementById('ov-pdf').classList.add('on');
   renderRecent();buildYrCol(SESS);renderYrContent(SESS,AY[SESS]);
 }
-function closePDF(){document.getElementById('ov-pdf').classList.remove('on');document.getElementById('pdf-frame').src=''}
+function closePDF(){document.getElementById('ov-pdf').classList.remove('on');document.getElementById('pdf-frame').src='';document.body.classList.remove('pdf-open')}
 
 // ══ RECENT ══
 function renderRecent(){
