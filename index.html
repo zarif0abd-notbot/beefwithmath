@@ -46,6 +46,9 @@ body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono',monospace
 
 /* SCANLINES */
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,var(--scan) 3px,var(--scan) 4px);pointer-events:none;z-index:9990;animation:scanMove 10s linear infinite}
+.ov.on~body::after{display:none}
+.pframe{position:relative;z-index:1}
+.pdf-modal{isolation:isolate}
 @keyframes scanMove{0%{background-position:0 0}100%{background-position:0 100px}}
 
 /* NOISE */
@@ -126,15 +129,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .page.active{display:block}
 
 /* PAGE TRANSITION */
-@keyframes glitchIn{
-  0%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(8px)}
-  30%{clip-path:inset(0 0 0 0);opacity:1;transform:translateX(-2px)}
-  45%{transform:translateX(1px)}
-  60%{clip-path:inset(20% 0 20% 0);transform:translateX(-1px)}
-  75%{clip-path:inset(0 0 0 0)}
-  100%{opacity:1;transform:translateX(0)}
-}
-.page.glitch-enter{animation:glitchIn .35s ease forwards}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.page.glitch-enter{animation:fadeIn .25s ease forwards}
 
 /* ══ HOME ══ */
 .home-wrap{min-height:100%;display:flex;flex-direction:column;justify-content:center;padding:3rem 3.5rem;position:relative;overflow:hidden}
@@ -254,6 +250,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 @keyframes skelAnim{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .page-skeleton{position:absolute;inset:0;background:var(--bg);z-index:10;display:none;padding:1.5rem;gap:.75rem;flex-direction:column}
 .page-skeleton.show{display:flex}
+.skel-overlay{position:absolute;inset:0;background:var(--bg);z-index:20;padding:1.5rem;display:none;flex-direction:column;gap:.5rem;pointer-events:none}
+.skel-overlay.show{display:flex;animation:skelFadeIn .15s ease forwards}
+.skel-overlay.hide{animation:skelFadeOut .25s ease forwards}
+@keyframes skelFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes skelFadeOut{from{opacity:1}to{opacity:0}}
+.skel-wrap{width:100%;max-width:600px}
 .skel-line{height:16px;width:60%}
 .skel-line.w80{width:80%}
 .skel-line.w40{width:40%}
@@ -483,7 +485,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pdf-modal{max-width:95vw;width:95vw;height:90vh;padding:.7rem;display:flex;flex-direction:column}
 .pmhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:.45rem}
 .pmtitle{font-size:.62rem;color:var(--tx2)}
-.pframe{flex:1;border:none;border-radius:3px;background:#fff}
+.pframe{flex:1;border:none;border-radius:3px;background:#fff;position:relative;z-index:9995}
 
 /* KBD SHORTCUTS HINT */
 .kbd-hint{font-size:.48rem;color:var(--tx3);letter-spacing:.08em}
@@ -941,14 +943,8 @@ function goPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active','glitch-enter'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   const page=document.getElementById(`page-${name}`);
-  // Skeleton flash
-  page.style.opacity='0';
   page.classList.add('active');
-  setTimeout(()=>{
-    page.style.opacity='1';
-    page.style.transition='opacity .25s ease';
-    setTimeout(()=>{page.style.transition='';page.classList.add('glitch-enter')},30);
-  },80);
+  setTimeout(()=>page.classList.add('glitch-enter'),10);
   document.querySelectorAll('.nav-item').forEach(n=>{
     if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes(`'${name}'`))n.classList.add('active');
   });
