@@ -17,8 +17,7 @@
   --card:#0e0e14;--card-border:#22222e;
   --sb:#09090e;
   --shadow:rgba(0,0,0,.5);
-  --scan:rgba(0,0,0,.06);
-  --noise-op:.04;
+  
 }
 [data-theme="light"]{
   --bg:#f5f0e8;--s1:#ede8de;--s2:#e5dfd4;--s3:#ddd7ca;
@@ -30,30 +29,24 @@
   --card:#ede8de;--card-border:#c8c0b0;
   --sb:#e8e2d8;
   --shadow:rgba(0,0,0,.12);
-  --scan:rgba(0,0,0,.015);
-  --noise-op:.025;
+  
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden}
-body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono',monospace;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
+html,body{height:100%;overflow:hidden;cursor:auto}
+body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono',monospace;cursor:auto;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
 
-/* CUSTOM CURSOR */
-#cur{position:fixed;pointer-events:none;z-index:9999;width:18px;height:18px;transform:translate(-50%,-50%)}
-#cur::before{content:'+';font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--o);line-height:1;display:block;text-align:center;animation:curBlink 1.8s ease infinite}
-#cur.clicking{transform:translate(-50%,-50%) scale(.7)}
+
 @keyframes curBlink{0%,100%{opacity:.6}50%{opacity:1}}
 
 /* SCANLINES */
-body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,var(--scan) 3px,var(--scan) 4px);pointer-events:none;z-index:9990;animation:scanMove 10s linear infinite}
-body.pdf-open::after{display:none}
-.ov.on~body::after{display:none}
+/* scanlines removed */
 .pframe{position:relative;z-index:1}
 .pdf-modal{isolation:isolate}
-@keyframes scanMove{0%{background-position:0 0}100%{background-position:0 100px}}
+
 
 /* NOISE */
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9989;opacity:var(--noise-op)}
+/* noise removed */
 
 ::-webkit-scrollbar{width:3px;height:3px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -159,7 +152,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .h-beef-1{display:block;color:var(--o);position:relative}
 .h-beef-1::before{content:'BEEF';position:absolute;left:2px;top:0;color:var(--c);opacity:.08;clip-path:polygon(0 30%,100% 30%,100% 45%,0 45%);animation:glitchShift 6s ease infinite}
 .h-beef-1::after{content:'BEEF';position:absolute;left:-2px;top:0;color:var(--g);opacity:.06;clip-path:polygon(0 65%,100% 65%,100% 75%,0 75%);animation:glitchShift 6s ease infinite reverse}
-@keyframes glitchShift{0%,90%,100%{transform:translateX(0)}91%{transform:translateX(3px)}92%{transform:translateX(-3px)}93%{transform:translateX(2px)}94%{transform:translateX(0)}96%{transform:translateX(-2px)}97%{transform:translateX(0)}}
+@keyframes glitchShift{0%,95%,100%{transform:translateX(0)}96%{transform:translateX(2px)}97%{transform:translateX(-1px)}98%{transform:translateX(0)}}
 .h-beef-2{display:block;font-size:.42em;color:var(--tx3);font-family:'JetBrains Mono',monospace;letter-spacing:.18em;font-weight:300;margin:.08em 0 -.05em}
 .h-beef-3{display:block;color:transparent;-webkit-text-stroke:1.5px var(--tx);position:relative}
 .h-beef-3::after{content:'MATH';position:absolute;left:3px;top:3px;-webkit-text-stroke:1px var(--o2);color:transparent;filter:blur(1px)}
@@ -280,8 +273,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .paper-card.seen .paper-tick{display:flex}
 .paper-num{font-size:.65rem;font-weight:700;margin-bottom:.12rem}
 .paper-code{font-size:.52rem;color:var(--tx3)}
-.paper-card.locked{opacity:.5;cursor:not-allowed}
-.paper-card.locked::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.9rem}
+
+
 
 .ch-item{margin-bottom:.28rem}
 .ch-head{background:var(--s1);border:1px solid var(--b1);border-radius:4px;padding:.55rem .8rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all .2s;font-size:.68rem}
@@ -299,16 +292,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pill{background:var(--s1);border:1px solid var(--b1);border-radius:3px;padding:.25rem .6rem;font-size:.6rem;cursor:pointer;transition:all .18s}
 .pill:hover{border-color:var(--o);color:var(--o);transform:translateY(-1px)}
 .pill.seen{border-color:var(--g);color:var(--g)}
-.pill.locked{opacity:.4;cursor:not-allowed}
+
 .soon-box{padding:1.25rem;background:var(--s1);border:1px dashed var(--b1);border-radius:4px;text-align:center;font-size:.65rem;color:var(--tx3)}
 
-/* BEEF BADGE */
-.beef-badge{font-size:.5rem;padding:.09rem .4rem;border-radius:2px;font-weight:700;letter-spacing:.03em;flex-shrink:0;white-space:nowrap}
-.bf0{background:rgba(61,255,138,.1);color:var(--g);border:1px solid rgba(61,255,138,.2)}
-.bf1{background:rgba(255,225,53,.08);color:var(--y);border:1px solid rgba(255,225,53,.2)}
-.bf2{background:rgba(255,107,26,.1);color:var(--o);border:1px solid rgba(255,107,26,.2)}
-.bf3{background:rgba(255,50,50,.1);color:#ff4444;border:1px solid rgba(255,50,50,.2)}
-.bf4{background:rgba(157,78,221,.1);color:#c44dff;border:1px solid rgba(157,78,221,.2)}
+
 
 /* ══ BEEF BOARD ══ */
 .board-page{height:100%;overflow-y:auto;padding:2rem}
@@ -523,7 +510,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 </style>
 </head>
 <body>
-<div id="cur"></div>
 <div class="flash-overlay" id="flash-overlay"></div>
 
 <div class="app">
@@ -804,16 +790,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 <script src="data.js"></script>
 <script>
-// ══ BEEF METER ══
-const BEEF={
-  FM:{"Circular motion":"proper beef","Equilibrium of a rigid Body":"mild beef","Hookes law":"no beef","Linear motion under a variable Force":"mild beef","Momentum":"no beef","Motion of a projectile":"no beef"},
-  FP1:{"Matrices":"mild beef","Polar coordinates":"proper beef","Proof by induction":"mild beef","Rational functions and graphs":"mild beef","Roots of polynomial equations":"mild beef","Summation of series":"no beef","Vectors":"mild beef"},
-  FP2:{"Complex numbers":"proper beef","Differential equations":"dead beef","Differentiation":"mild beef","Hyperbolic functions":"proper beef","Integration":"dead beef","Matrices":"mild beef"},
-  FS:{"Continuous random variables":"mild beef","Inference using normal and t-distributions":"proper beef","Non-parametric tests":"no beef","Probability generating functions":"mild beef","Chi-squared tests":"no beef"}
-};
-const BSTYLE={"no beef":{c:"bf0",e:"🟢"},"mild beef":{c:"bf1",e:"🟡"},"proper beef":{c:"bf2",e:"🟠"},"dead beef":{c:"bf3",e:"🔴"},"unsolved beef":{c:"bf4",e:"💀"}};
-function beefBadge(sub,ch){const l=(BEEF[sub]&&BEEF[sub][ch])||"mild beef";const s=BSTYLE[l]||BSTYLE["mild beef"];return`<span class="beef-badge ${s.c}">${s.e} ${l}</span>`}
-
 // ══ TIPS ══
 const TIPS=["Integration by parts: u dv = uv − ∫v du","For polar: area = ½∫r² dθ","Newton-Raphson converges quadratically near roots","Proof by induction: always verify the base case carefully","Eigenvalues of a 2×2: use det(A−λI)=0","For SHM: ẍ = −ω²x is the key condition","Hyperbolic identities mirror trig but with sign differences","Chi-squared df = (rows−1)(cols−1)","For CLT to apply: n ≥ 30 is the rule of thumb","Complex roots of real polynomials come in conjugate pairs"];
 function setTip(){const t=TIPS[Math.floor(Date.now()/86400000)%TIPS.length];document.getElementById('sb-tip').textContent=t}
@@ -925,7 +901,7 @@ function buildCountdown(){
 }
 
 // ══ PREVIEW (FREE - NO LIMIT) ══
-let previewCount=parseInt(localStorage.getItem('bwm_pc')||'0');
+let previewCount=0;localStorage.removeItem('bwm_pc');
 function closePricingPopup(){}
 function updateAcctViewed(){
   const el=document.getElementById('acct-viewed');
@@ -961,7 +937,7 @@ document.addEventListener('keydown',e=>{
 
 // ══ BOOT ══
 document.addEventListener('DOMContentLoaded',()=>{
-  initCursor();spawnSyms();setTip();
+  initParallax();spawnSyms();setTip();
   scrambleCountUp('cn1',5,900);
   scrambleCountUp('cn2',4,950);
   scrambleCountUp('cn3',24,1050);
@@ -983,13 +959,9 @@ function toggleTheme(){
   localStorage.setItem('bwm_theme',next);
 }
 
-// ══ CURSOR ══
-function initCursor(){
-  const c=document.getElementById('cur');
+// ══ PARALLAX ══
+function initParallax(){
   document.addEventListener('mousemove',e=>{
-    c.style.left=e.clientX+'px';
-    c.style.top=e.clientY+'px';
-    // Parallax on home glows
     const xp=(e.clientX/window.innerWidth-.5)*18;
     const yp=(e.clientY/window.innerHeight-.5)*18;
     const g1=document.querySelector('.home-glow1');
@@ -997,8 +969,6 @@ function initCursor(){
     if(g1)g1.style.transform=`translate(${xp}px,${yp}px)`;
     if(g2)g2.style.transform=`translate(${-xp*.5}px,${-yp*.5}px)`;
   });
-  document.addEventListener('mousedown',()=>c.classList.add('clicking'));
-  document.addEventListener('mouseup',()=>c.classList.remove('clicking'));
 }
 
 // ══ SYMBOLS (cursor-reactive) ══
@@ -1120,9 +1090,8 @@ function renderYrContent(sess,yr){
       html+=`<div class="sec-lbl">topical practice</div>`;
       Object.entries(top[sub]).forEach(([ch,cnt])=>{
         const pdfs=getPDFs(cnt);
-        const badge=beefBadge(sub,ch);
         html+=`<div class="ch-item"><div class="ch-head" onclick="togCh(this)">
-          <div class="ch-left"><div class="ch-name">${ch}</div>${badge}</div>
+          <div class="ch-left"><div class="ch-name">${ch}</div></div>
           <div class="ch-right"><div class="ch-count">${pdfs.length}q</div><div class="ch-arr">▾</div>
         </div></div><div class="ch-body"><div class="pills">`;
         pdfs.forEach(f=>{
@@ -1152,7 +1121,6 @@ function showPricingPopup(){}
 // ══ PDF ══
 function openPDF(path,title){document.body.classList.add('pdf-open');
   if(!VIEWED.includes(path)){
-    if(previewCount>=MAX_FREE){showPricingPopup();return}
     VIEWED.push(path);
     previewCount++;
     localStorage.setItem('bwm_v',JSON.stringify(VIEWED));
