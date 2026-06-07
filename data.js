@@ -38,8 +38,9 @@ const DATA = {
                  "Summation of series":2,"Vectors":2 },
           FP2: { "Complex numbers":3,"Differential equations":4,"Differentiation":2,
                  "Hyperbolic functions":4,"Integration":4,"Matrices":3 },
-          FS:  { "Continuous random variables":2,"Inference using normal and t-distributions":4,
-                 "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
+          FS:  { "Chi-squared tests":2,"Continuous random variables":2,
+                 "Inference using normal and t-distributions":4,
+                 "Non-parametric tests":2,"Probability generating functions":2 }
         },
         "2022 mayjune": {
           FM:  { "Circular motion":3,"Equilibrium of a rigid Body":3,"Hookes law":2,
@@ -49,8 +50,9 @@ const DATA = {
                  "Summation of series":2,"Vectors":2 },
           FP2: { "Complex numbers":2,"Differential equations":4,"Differentiation":3,
                  "Hyperbolic functions":1,"Integration":4,"Matrices":2 },
-          FS:  { "Continuous random variables":2,"Inference using normal and t-distributions":4,
-                 "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
+          FS:  { "Chi-squared tests":2,"Continuous random variables":2,
+                 "Inference using normal and t-distributions":4,
+                 "Non-parametric tests":2,"Probability generating functions":2 }
         },
         "2023 mayjune": {
           FM:  { "Circular motion":2,"Equilibrium of a rigid Body":2,"Hookes law":2,
@@ -60,8 +62,9 @@ const DATA = {
                  "Summation of series":2,"Vectors":2 },
           FP2: { "Complex numbers":2,"Differential equations":4,"Differentiation":2,
                  "Hyperbolic functions":2,"Integration":2,"Matrices":3 },
-          FS:  { "Continuous random variables":2,"Inference using normal and t-distributions":2,
-                 "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
+          FS:  { "Chi-squared tests":2,"Continuous random variables":2,
+                 "Inference using normal and t-distributions":2,
+                 "Non-parametric tests":2,"Probability generating functions":2 }
         },
         "2024 mayjune": {
           FM:  { "Circular motion":2,"Equilibrium of a rigid Body":2,"Hookes law":2,
@@ -73,8 +76,9 @@ const DATA = {
                  "Differentiation":["1,2.pdf","2,3.pdf","4.pdf"],
                  "Hyperbolic functions":["1(a).pdf","2.pdf","3.pdf"],
                  "Integration":4,"Matrices":2 },
-          FS:  { "Continuous random variables":2,"Inference using normal and t-distributions":2,
-                 "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
+          FS:  { "Chi-squared tests":2,"Continuous random variables":2,
+                 "Inference using normal and t-distributions":2,
+                 "Non-parametric tests":2,"Probability generating functions":2 }
         },
         "2025 mayjune": {
           FM:  { "Circular motion":6,"Equilibrium of a rigid Body":3,"Hookes law":3,
@@ -84,8 +88,9 @@ const DATA = {
                  "Summation of series":3,"Vectors":3 },
           FP2: { "Complex numbers":4,"Differential equations":6,"Differentiation":4,
                  "Hyperbolic functions":3,"Integration":5,"Matrices":4 },
-          FS:  { "Continuous random variables":3,"Inference using normal and t-distributions":6,
-                 "Non-parametric tests":3,"Probability generating functions":3,"Chi-squared tests":3 }
+          FS:  { "Chi-squared tests":3,"Continuous random variables":3,
+                 "Inference using normal and t-distributions":6,
+                 "Non-parametric tests":3,"Probability generating functions":3 }
         }
       }
     },
@@ -103,8 +108,9 @@ const DATA = {
                  "Summation of series":2,"Vectors":2 },
           FP2: { "Complex numbers":2,"Differential equations":2,"Differentiation":2,
                  "Hyperbolic functions":3,"Integration":2,"Matrices":3 },
-          FS:  { "Continuous random variables":2,"Inference using normal and t-distributions":2,
-                 "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
+          FS:  { "Chi-squared tests":2,"Continuous random variables":2,
+                 "Inference using normal and t-distributions":2,
+                 "Non-parametric tests":2,"Probability generating functions":2 }
         },
         "2022 octnov": {
           FM:  { "Circular motion":4,"Equilibrium of a rigid Body":2,"Hookes law":2,
@@ -114,8 +120,9 @@ const DATA = {
                  "Summation of series":2,"Vectors":2 },
           FP2: { "Complex numbers":2,"Differential equations":4,"Differentiation":5,
                  "Hyperbolic functions":1,"Integration":5,"Matrices":4 },
-          FS:  { "Continuous random variables":2,"Inference using normal and t-distributions":4,
-                 "Non-parametric tests":2,"Probability generating functions":2,"Chi-squared tests":2 }
+          FS:  { "Chi-squared tests":2,"Continuous random variables":2,
+                 "Inference using normal and t-distributions":4,
+                 "Non-parametric tests":2,"Probability generating functions":2 }
         },
         "2023 octnov": {
           FM:  { "Circular motion":3,"Equilibrium of a rigid Body":2,"Hookes law":2,
