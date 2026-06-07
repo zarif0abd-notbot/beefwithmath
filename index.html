@@ -810,7 +810,12 @@ body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono',monospace
 <div class="ov" id="ov-signup"><div class="modal"><button class="mx" onclick="closeM('signup')">✕</button><div class="mh">JOIN THE BEEF</div><div class="msub">Create your account and start solving.</div><div class="fg"><label class="fl">// NAME</label><input type="text" class="fi" placeholder="Your name"></div><div class="fg"><label class="fl">// EMAIL</label><input type="email" class="fi" placeholder="you@example.com"></div><div class="fg"><label class="fl">// PASSWORD</label><input type="password" class="fi" placeholder="Make it strong"></div><button class="btn-mw" onclick="closeM('signup');toast('account created. welcome to the beef 🔥','ok')">create_account()</button><div class="msw">Already in? <a onclick="swM('signup','login')">log in</a></div></div></div>
 <div class="ov" id="ov-pdf"><div class="modal pdf-modal"><div class="pmhd"><div class="pmtitle" id="pdf-title">loading...</div><button class="mx" style="position:static" onclick="closePDF()">✕</button></div><iframe class="pframe" id="pdf-frame" src=""></iframe></div></div>
 <div class="toast" id="toast-el"></div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'https://vipnpbqjcsquddjglyts.supabase.co/rest/v1/';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcG5wYnFqY3NxdWRkamdseXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NTIwMzMsImV4cCI6MjA5NjQyODAzM30._wlSRLDmg-vjFKeqnOEQn9VL6iPkQvXX5GJlaGp5zbs';
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script>
 <script src="data.js"></script>
 <script>
 
@@ -1264,9 +1269,12 @@ function setupOvClose(){
 }
 
 // ══ EARLY ACCESS ══
-function doEarlyAccess(){
+async function doEarlyAccess(){
   const inp=document.getElementById('ea-email');
   if(!inp.value.includes('@')){toast('// error: invalid email','err');return}
+  const email=inp.value.trim();
+  const{error}=await supabase.from('waitlist').insert([{email}]);
+  if(error){toast('// error: already on waitlist or invalid email','err');return}
   inp.value='';
   const el=document.getElementById('wl-count');el.textContent=parseInt(el.textContent)+1;
   toast('// added to waitlist ✓','ok');
