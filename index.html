@@ -812,7 +812,7 @@ body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono',monospace
 <div class="toast" id="toast-el"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = 'https://vipnpbqjcsquddjglyts.supabase.co/rest/v1/';
+  const SUPABASE_URL = 'https://vipnpbqjcsquddjglyts.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcG5wYnFqY3NxdWRkamdseXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NTIwMzMsImV4cCI6MjA5NjQyODAzM30._wlSRLDmg-vjFKeqnOEQn9VL6iPkQvXX5GJlaGp5zbs';
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 </script>
@@ -847,6 +847,8 @@ function buildBoard(){
   const main=document.getElementById('bq-main');
   const dots=document.getElementById('bn-dots');
   const grid=document.getElementById('board-grid');
+  dots.innerHTML='';grid.innerHTML='';
+  clearInterval(qTimer);curQ=0;
   setQ(0);
   QUOTES.forEach((_,i)=>{const d=document.createElement('div');d.className='bnd'+(i===0?' on':'');d.onclick=()=>goQ(i);dots.appendChild(d)});
   QUOTES.slice(1).forEach(q=>{grid.innerHTML+=`<div class="mini-q">${q.text}<div class="mini-q-attr">${q.attr}</div></div>`});
@@ -963,6 +965,8 @@ function goPage(name){
   });
   document.getElementById('tb-current').textContent=name;
   if(name==='account'){updateAcctViewed();buildAcctProgress()}
+  if(name==='archive'){setTimeout(()=>{if(typeof DATA!=='undefined'&&!document.getElementById('yr-content').innerHTML.trim()){buildYrCol(SESS);renderYrContent(SESS,AY[SESS]);}},50);}
+  if(name==='board'){buildBoard()}
 }
 
 // ══ KEYBOARD SHORTCUTS ══
