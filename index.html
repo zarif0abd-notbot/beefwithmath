@@ -806,8 +806,8 @@ body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono',monospace
 
 
 <!-- MODALS -->
-<div class="ov" id="ov-login"><div class="modal"><button class="mx" onclick="closeM('login')">✕</button><div class="mh">WELCOME BACK</div><div class="msub">Pick up where you left off.</div><div class="fg"><label class="fl">// EMAIL</label><input type="email" class="fi" placeholder="you@example.com"></div><div class="fg"><label class="fl">// PASSWORD</label><input type="password" class="fi" placeholder="••••••••"></div><button class="btn-mw">login()</button><div class="msw">No account? <a onclick="swM('login','signup')">sign up free</a></div></div></div>
-<div class="ov" id="ov-signup"><div class="modal"><button class="mx" onclick="closeM('signup')">✕</button><div class="mh">JOIN THE BEEF</div><div class="msub">Create your account and start solving.</div><div class="fg"><label class="fl">// NAME</label><input type="text" class="fi" placeholder="Your name"></div><div class="fg"><label class="fl">// EMAIL</label><input type="email" class="fi" placeholder="you@example.com"></div><div class="fg"><label class="fl">// PASSWORD</label><input type="password" class="fi" placeholder="Make it strong"></div><button class="btn-mw" onclick="closeM('signup');toast('account created. welcome to the beef 🔥','ok')">create_account()</button><div class="msw">Already in? <a onclick="swM('signup','login')">log in</a></div></div></div>
+<div class="ov" id="ov-login"><div class="modal"><button class="mx" onclick="closeM('login')">✕</button><div class="mh">WELCOME BACK</div><div class="msub">Pick up where you left off.</div><div class="fg"><label class="fl">// EMAIL</label><input type="email" class="fi" placeholder="you@example.com"></div><div class="fg"><label class="fl">// PASSWORD</label><input type="password" class="fi" placeholder="••••••••"></div><button class="btn-mw" onclick="signIn(this.closest('.modal').querySelectorAll('.fi')[0].value,this.closest('.modal').querySelectorAll('.fi')[1].value)">login()</button><div class="msw">No account? <a onclick="swM('login','signup')">sign up free</a></div></div></div>
+<div class="ov" id="ov-signup"><div class="modal"><button class="mx" onclick="closeM('signup')">✕</button><div class="mh">JOIN THE BEEF</div><div class="msub">Create your account and start solving.</div><div class="fg"><label class="fl">// NAME</label><input type="text" class="fi" placeholder="Your name"></div><div class="fg"><label class="fl">// EMAIL</label><input type="email" class="fi" placeholder="you@example.com"></div><div class="fg"><label class="fl">// PASSWORD</label><input type="password" class="fi" placeholder="Make it strong"></div><button class="btn-mw" onclick="signUp(this.closest('.modal').querySelectorAll('.fi')[0].value,this.closest('.modal').querySelectorAll('.fi')[1].value,this.closest('.modal').querySelectorAll('.fi')[2].value)">create_account()</button><div class="msw">Already in? <a onclick="swM('signup','login')">log in</a></div></div></div>
 <div class="ov" id="ov-pdf"><div class="modal pdf-modal"><div class="pmhd"><div class="pmtitle" id="pdf-title">loading...</div><button class="mx" style="position:static" onclick="closePDF()">✕</button></div><iframe class="pframe" id="pdf-frame" src=""></iframe></div></div>
 <div class="toast" id="toast-el"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -974,7 +974,7 @@ document.addEventListener('keydown',e=>{
 
 // ══ BOOT ══
 document.addEventListener('DOMContentLoaded',()=>{
-  initParallax();spawnSyms();setTip();buildTicker();
+  initParallax();spawnSyms();setTip();buildTicker();updateAuthUI();
   scrambleCountUp('cn1',5,900);
   scrambleCountUp('cn2',4,950);
   scrambleCountUp('cn3',24,1050);
@@ -1278,6 +1278,53 @@ async function doEarlyAccess(){
   inp.value='';
   const el=document.getElementById('wl-count');el.textContent=parseInt(el.textContent)+1;
   toast('// added to waitlist ✓','ok');
+}
+
+
+// ══ AUTH ══
+async function signUp(name, email, password){
+  if(!name||!email||!password){toast('// error: fill in all fields','err');return}
+  const{data,error}=await supabase.auth.signUp({
+    email,password,
+    options:{data:{full_name:name}}
+  });
+  if(error){toast('// error: '+error.message,'err');return}
+  await supabase.from('profiles').insert([{
+    id:data.user.id,
+    email,
+    full_name:name
+  }]);
+  toast('// account created! check your email to verify ✓','ok');
+  closeM('signup');
+}
+
+async function signIn(email, password){
+  if(!email||!password){toast('// error: fill in all fields','err');return}
+  const{error}=await supabase.auth.signInWithPassword({email,password});
+  if(error){toast('// error: '+error.message,'err');return}
+  toast('// welcome back ✓','ok');
+  closeM('login');
+  updateAuthUI();
+}
+
+async function signOut(){
+  await supabase.auth.signOut();
+  toast('// signed out','ok');
+  updateAuthUI();
+}
+
+function updateAuthUI(){
+  supabase.auth.getUser().then(({data:{user}})=>{
+    const btns=document.querySelector('.sb-btns');
+    if(!btns)return;
+    if(user){
+      btns.innerHTML=`<button class="sbb" onclick="signOut()">logout</button>
+      <button class="sbb solid" onclick="goPage('account')">my account</button>`;
+    }else{
+      btns.innerHTML=`<button class="sbb" onclick="openM('login')">login</button>
+      <button class="sbb solid" onclick="openM('signup')">get access</button>`;
+    }
+  });
 }
 
 // ══ TOAST ══
