@@ -963,7 +963,7 @@ function goPage(name){
     if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes(`'${name}'`))n.classList.add('active');
   });
   document.getElementById('tb-current').textContent=name;
-  if(name==='account'){updateAcctViewed();buildAcctProgress()}
+  if(name==='account'){updateAcctViewed();buildAcctProgress();loadAccountPage()}
   if(name==='archive'){setTimeout(()=>{if(typeof DATA!=='undefined'&&!document.getElementById('yr-content').innerHTML.trim()){buildYrCol(SESS);renderYrContent(SESS,AY[SESS]);}},50);}
   if(name==='board'){buildBoard()}
 }
@@ -1328,6 +1328,53 @@ function updateAuthUI(){
       <button class="sbb solid" onclick="openM('signup')">get access</button>`;
     }
   });
+}
+
+async function loadAccountPage(){
+  const{data:{user}}=await supa.auth.getUser();
+  if(!user){
+    // not logged in - show login prompt
+    document.querySelector('#page-account .page-sub').textContent='// sign in to view your account';
+    return;
+  }
+  // Get profile from database
+  const{data:profile}=await supa.from('profiles').select('*').eq('id',user.id).single();
+  const name=profile?.full_name||user.user_metadata?.full_name||'—';
+  const email=user.email||'—';
+  const joined=new Date(user.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+
+  // Update profile card
+  const acctGrid=document.querySelector('.acct-grid');
+  if(!acctGrid)return;
+  acctGrid.innerHTML=`
+    <div class="acct-card">
+      <div class="acct-card-title">profile</div>
+      <div class="acct-row"><span class="acct-key">status</span><span class="status-pill sp-active">FREE BEEF 🥩</span></div>
+      <div class="acct-row"><span class="acct-key">name</span><span class="acct-val">${name}</span></div>
+      <div class="acct-row"><span class="acct-key">email</span><span class="acct-val">${email}</span></div>
+      <div class="acct-row"><span class="acct-key">member since</span><span class="acct-val">${joined}</span></div>
+    </div>
+    <div class="acct-card">
+      <div class="acct-card-title">subscription</div>
+      <div class="acct-row"><span class="acct-key">plan</span><span class="acct-val active">Full Beef — Free Phase</span></div>
+      <div class="acct-row"><span class="acct-key">papers viewed</span><span class="acct-val" id="acct-viewed">${VIEWED.length} (unlimited)</span></div>
+      <div class="acct-row"><span class="acct-key">access expires</span><span class="acct-val active">Never (free phase)</span></div>
+      <div class="acct-row"><span class="acct-key">days remaining</span><span class="acct-val active">∞</span></div>
+    </div>
+    <div class="acct-card acct-full">
+      <div class="acct-card-title">billing history</div>
+      <div class="billing-row">
+        <div class="br-left">
+          <span style="font-size:.68rem;color:var(--tx2)">No billing history yet</span>
+          <span class="br-date">You are on the free plan — no charges</span>
+        </div>
+      </div>
+    </div>
+    <div class="acct-card acct-full">
+      <div class="acct-card-title">progress overview</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.65rem;margin-top:.5rem" id="acct-progress"></div>
+    </div>`;
+  buildAcctProgress();
 }
 
 // ══ TOAST ══
