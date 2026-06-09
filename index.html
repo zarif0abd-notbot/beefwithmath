@@ -812,9 +812,9 @@ body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono',monospace
 <div class="toast" id="toast-el"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = 'https://vipnpbqjcsquddjglyts.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcG5wYnFqY3NxdWRkamdseXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NTIwMzMsImV4cCI6MjA5NjQyODAzM30._wlSRLDmg-vjFKeqnOEQn9VL6iPkQvXX5GJlaGp5zbs';
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const _SURL = 'https://vipnpbqjcsquddjglyts.supabase.co';
+  const _SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpcG5wYnFqY3NxdWRkamdseXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NTIwMzMsImV4cCI6MjA5NjQyODAzM30._wlSRLDmg-vjFKeqnOEQn9VL6iPkQvXX5GJlaGp5zbs';
+  const supa = window.supabase.createClient(_SURL, _SKEY);
 </script>
 <script src="data.js"></script>
 <script>
@@ -923,20 +923,19 @@ function resetQZ(){
 // ══ COUNTDOWN (INFINITE ???) ══
 function buildCountdown(){
   const el=document.getElementById('countdown');
-  el.innerHTML=`
-    <div class="cd-unit"><span class="cd-num" id="cd-d">??</span><div class="cd-lbl">days</div></div>
-    <div class="cd-unit"><span class="cd-num" id="cd-h">??</span><div class="cd-lbl">hours</div></div>
-    <div class="cd-unit"><span class="cd-num" id="cd-m">??</span><div class="cd-lbl">mins</div></div>
-    <div class="cd-unit"><span class="cd-num" id="cd-s">??</span><div class="cd-lbl">secs</div></div>`;
-  // Scramble effect - random numbers suggesting infinity
-  setInterval(()=>{
-    ['d','h','m','s'].forEach(u=>{
-      const el=document.getElementById(`cd-${u}`);
-      el.classList.add('flip');
-      el.textContent=Math.random()<.15?'??':Math.floor(Math.random()*99).toString().padStart(2,'0');
-      setTimeout(()=>el.classList.remove('flip'),200);
+  if(!el)return;
+  el.innerHTML=
+    '<div class="cd-unit"><span class="cd-num" id="cd-d">??</span><div class="cd-lbl">days</div></div>'+
+    '<div class="cd-unit"><span class="cd-num" id="cd-h">??</span><div class="cd-lbl">hours</div></div>'+
+    '<div class="cd-unit"><span class="cd-num" id="cd-m">??</span><div class="cd-lbl">mins</div></div>'+
+    '<div class="cd-unit"><span class="cd-num" id="cd-s">??</span><div class="cd-lbl">secs</div></div>';
+  setInterval(function(){
+    ['d','h','m','s'].forEach(function(u){
+      var el2=document.getElementById('cd-'+u);
+      if(!el2)return;
+      el2.textContent=Math.random()<.15?'??':Math.floor(Math.random()*99).toString().padStart(2,'0');
     });
-  },2000);
+  },1800);
 }
 
 // ══ PREVIEW (FREE - NO LIMIT) ══
@@ -1277,7 +1276,7 @@ async function doEarlyAccess(){
   const inp=document.getElementById('ea-email');
   if(!inp.value.includes('@')){toast('// error: invalid email','err');return}
   const email=inp.value.trim();
-  const{error}=await supabase.from('waitlist').insert([{email}]);
+  const{error}=await supa.from('waitlist').insert([{email}]);
   if(error){toast('// error: already on waitlist or invalid email','err');return}
   inp.value='';
   const el=document.getElementById('wl-count');el.textContent=parseInt(el.textContent)+1;
@@ -1288,12 +1287,12 @@ async function doEarlyAccess(){
 // ══ AUTH ══
 async function signUp(name, email, password){
   if(!name||!email||!password){toast('// error: fill in all fields','err');return}
-  const{data,error}=await supabase.auth.signUp({
+  const{data,error}=await supa.auth.signUp({
     email,password,
     options:{data:{full_name:name}}
   });
   if(error){toast('// error: '+error.message,'err');return}
-  await supabase.from('profiles').insert([{
+  await supa.from('profiles').insert([{
     id:data.user.id,
     email,
     full_name:name
@@ -1304,7 +1303,7 @@ async function signUp(name, email, password){
 
 async function signIn(email, password){
   if(!email||!password){toast('// error: fill in all fields','err');return}
-  const{error}=await supabase.auth.signInWithPassword({email,password});
+  const{error}=await supa.auth.signInWithPassword({email,password});
   if(error){toast('// error: '+error.message,'err');return}
   toast('// welcome back ✓','ok');
   closeM('login');
@@ -1312,13 +1311,13 @@ async function signIn(email, password){
 }
 
 async function signOut(){
-  await supabase.auth.signOut();
+  await supa.auth.signOut();
   toast('// signed out','ok');
   updateAuthUI();
 }
 
 function updateAuthUI(){
-  supabase.auth.getUser().then(({data:{user}})=>{
+  supa.auth.getUser().then(({data:{user}})=>{
     const btns=document.querySelector('.sb-btns');
     if(!btns)return;
     if(user){
